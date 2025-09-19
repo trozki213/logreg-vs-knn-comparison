@@ -1,6 +1,6 @@
 # Logistic Regression vs k-Nearest Neighbors
 
-This project compares two classical machine learning algorithms — **k-Nearest Neighbors (k-NN)** and **Logistic Regression** — on a dataset of **1,400 samples × 30 numerical features**.  
+This project compares two classical machine learning algorithms (**k-Nearest Neighbors (k-NN)** and **Logistic Regression**) on a dataset of **1,400 samples × 30 numerical features**.  
 The aim is not only to measure and contrast their raw performance, but also to optimize their hyperparameters for the best results in terms of both accuracy and efficiency.  
 
 ---
