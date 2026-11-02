@@ -60,7 +60,7 @@ Evaluated on a stratified 20% hold-out set (280 samples, 5 imbalanced classes); 
 | Logistic Regression | C = 10, L2 penalty | 0.58 | 0.55 | 0.53 |
 | k-NN | k = 9, distance weighting, Euclidean | 0.76 | 0.71 | 0.67 |
 
-k-NN is selected as the final model: its non-linear decision boundaries capture structure that a linear classifier misses, while the rarest class remains the hardest for both models.
+k-NN is selected as the final model. The rarest class (20 test samples) remains the hardest for both: tuned k-NN reaches 0.88 precision but only 0.35 recall on it.
 
 ## 📂 Repository structure
 
