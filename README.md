@@ -47,4 +47,35 @@ Both **Logistic Regression** and **k-NN** are widely used in practice and form t
 This project highlights:  
 - How simple algorithms behave on structured data.  
 - The role of scaling and hyperparameter tuning.  
-- Trade-offs between **interpretability** (LogReg) and **flexibility** (k-NN).  
+- Trade-offs between **interpretability** (LogReg) and **flexibility** (k-NN).
+
+---
+
+## 📊 Results
+
+Evaluated on a stratified 20% hold-out set (280 samples, 5 imbalanced classes); hyperparameters tuned with stratified 10-fold cross-validation on the training set, using weighted F1 as the selection criterion.
+
+| Model | Tuned hyperparameters | CV accuracy | Test accuracy | Test macro F1 |
+|---|---|---:|---:|---:|
+| Logistic Regression | C = 10, L2 penalty | 0.58 | 0.55 | 0.53 |
+| k-NN | k = 9, distance weighting, Euclidean | 0.76 | 0.71 | 0.67 |
+
+k-NN is selected as the final model: its non-linear decision boundaries capture structure that a linear classifier misses, while the rarest class remains the hardest for both models.
+
+## 📂 Repository structure
+
+```
+.
+├── data/train-data.csv          # 1,400 labelled samples (30 features, 5 classes)
+├── data/test-data.csv           # unlabelled features for the final predictions
+├── notebook/ML_project.ipynb    # full pipeline, from EDA to final model
+└── predictions/predictions.txt  # predicted labels for test-data.csv
+```
+
+## ▶️ Running the notebook
+
+```bash
+pip install numpy pandas matplotlib seaborn scikit-learn jupyter
+cd notebook && jupyter notebook ML_project.ipynb
+```
+
