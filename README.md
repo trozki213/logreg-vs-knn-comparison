@@ -1,81 +1,47 @@
-# Logistic Regression vs k-Nearest Neighbors
+# Logistic Regression vs k-Nearest Neighbours
 
-This project compares two classical machine learning algorithms (**k-Nearest Neighbors (k-NN)** and **Logistic Regression**) on a dataset of **1,400 samples × 30 numerical features**.  
-The aim is not only to measure and contrast their raw performance, but also to optimize their hyperparameters for the best results in terms of both accuracy and efficiency.  
+**A tuned comparison of a linear and a non-parametric classifier on an imbalanced five-class problem with 30 numerical features.**
 
----
+Course project in machine learning, Bocconi University (2025).
 
-## 📖 Project Outline
+<p align="center">
+  <img src="assets/knn_per_class_metrics.png" width="560" alt="Precision, recall and F1-score per class for the tuned k-NN model">
+</p>
+<p align="center"><sub>Per-class precision, recall and F1-score of the tuned k-NN on the test set.</sub></p>
 
-We follow a structured pipeline:
+## Pipeline
 
-1. **Data Loading & Initial Inspection (EDA)**  
-   - Overview of dataset shape and class balance  
+1. **Exploration.** 1,400 samples × 30 features, no missing values, five imbalanced classes; feature correlations and distributions.
+2. **Preprocessing.** Standardisation inside scikit-learn pipelines, and a stratified 80/20 train–test split with a fixed seed.
+3. **Baselines.** Untuned logistic regression and k-NN, evaluated with stratified 10-fold cross-validation.
+4. **Tuning.** Grid search over the regularisation strength and penalty for logistic regression, and over the number of neighbours, the weighting scheme and the distance metric for k-NN, selected by weighted F1 on the training folds only.
+5. **Evaluation.** Classification reports, confusion matrices, one-vs-rest ROC and precision–recall curves, and learning curves.
+6. **Prediction.** The selected model labels an unlabelled test file (`predictions/predictions.txt`).
 
-2. **Correlation Analysis**  
-   - Feature correlation matrix and redundancy checks  
-
-3. **Feature Distributions & Scaling**  
-   - Standardization of features to ensure fair comparison  
-
-4. **Train/Test Split**  
-   - Holdout method for unbiased evaluation  
-
-5. **Baseline Models**  
-   - Logistic Regression (linear, interpretable baseline)  
-   - k-Nearest Neighbors (non-parametric, flexible decision boundaries)  
-
-6. **Hyperparameter Tuning**  
-   - Logistic Regression: regularization parameter `C`  
-   - k-NN: number of neighbors `k`, weighting scheme  
-
-7. **Hyperparameter Visualization**  
-   - Heatmaps and line plots of performance vs parameters  
-
-8. **Final Model Selection & Evaluation**  
-   - Accuracy, precision, recall, F1-score  
-   - ROC curves & AUC  
-
-9. **Conclusions**  
-   - Trade-offs between interpretability, performance, and efficiency  
-
----
-
-## 🌍 Motivation
-
-Both **Logistic Regression** and **k-NN** are widely used in practice and form the foundation of many machine learning pipelines.  
-This project highlights:  
-- How simple algorithms behave on structured data.  
-- The role of scaling and hyperparameter tuning.  
-- Trade-offs between **interpretability** (LogReg) and **flexibility** (k-NN).
-
----
-
-## 📊 Results
-
-Evaluated on a stratified 20% hold-out set (280 samples, 5 imbalanced classes); hyperparameters tuned with stratified 10-fold cross-validation on the training set, using weighted F1 as the selection criterion.
+## Results
 
 | Model | Tuned hyperparameters | CV accuracy | Test accuracy | Test macro F1 |
 |---|---|---:|---:|---:|
-| Logistic Regression | C = 10, L2 penalty | 0.58 | 0.55 | 0.53 |
-| k-NN | k = 9, distance weighting, Euclidean | 0.76 | 0.71 | 0.67 |
+| Logistic regression | C = 10, L2 penalty | 0.58 | 0.55 | 0.53 |
+| k-NN | k = 9, distance weighting, Euclidean | 0.76 | **0.71** | **0.67** |
 
-k-NN is selected as the final model. The rarest class (20 test samples) remains the hardest for both: tuned k-NN reaches 0.88 precision but only 0.35 recall on it.
+k-NN is selected as the final model. The rarest class (20 test samples) remains the hardest for both: tuned k-NN reaches 0.88 precision but only 0.35 recall on it. Its learning curve is still rising at the full training-set size, so more data would likely help.
 
-## 📂 Repository structure
+## Repository structure
 
 ```
 .
-├── data/train-data.csv          # 1,400 labelled samples (30 features, 5 classes)
-├── data/test-data.csv           # unlabelled features for the final predictions
-├── notebook/ML_project.ipynb    # full pipeline, from EDA to final model
-└── predictions/predictions.txt  # predicted labels for test-data.csv
+├── notebook/logreg_vs_knn.ipynb   Full pipeline, from exploration to final predictions
+├── data/train-data.csv            1,400 labelled samples
+├── data/test-data.csv             Unlabelled features for the final predictions
+├── predictions/predictions.txt    Predicted labels for test-data.csv
+├── assets/                        Figures used in this README
+└── LICENSE
 ```
 
-## ▶️ Running the notebook
+## Running the notebook
 
 ```bash
 pip install numpy pandas matplotlib seaborn scikit-learn jupyter
-cd notebook && jupyter notebook ML_project.ipynb
+cd notebook && jupyter notebook logreg_vs_knn.ipynb
 ```
-
