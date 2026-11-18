@@ -45,3 +45,4 @@ k-NN is selected as the final model. The rarest class (20 test samples) remains 
 pip install numpy pandas matplotlib seaborn scikit-learn jupyter
 cd notebook && jupyter notebook logreg_vs_knn.ipynb
 ```
+
